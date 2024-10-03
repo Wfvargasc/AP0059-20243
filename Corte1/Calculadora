@@ -18,14 +18,55 @@ class Calculadora:
       else:
          return "Error: La division es 0"
 #main
-from clase import Square, Calculadora 
+import tkinter as tk
+from clase import Calculadora
+def calcular():
+    calculadora = Calculadora()
+    num1 = float(entry1.get())
+    num2 = float(entry2.get())
+    operacion = operacion_var.get()
+    
+    if operacion == "+":
+        resultado = calculadora.add(num1, num2)
+    elif operacion == "-":
+        resultado = calculadora.sub(num1, num2)
+    elif operacion == "*":
+        resultado = calculadora.mul(num1, num2)
+    elif operacion == "/":
+        resultado = calculadora.div(num1, num2)
+    
+   
+    label_resultado.config(text=f"Resultado: {resultado}", font=("Arial", 24, "bold"), fg="blue")
 
-object1 = Square(5)
-print(f"From class Square: {object1.getVal()}")
+ventana = tk.Tk()
+ventana.title("Calculadora")
 
-object2 = Calculadora()
+label1 = tk.Label(ventana, text="Número 1:", font=("Arial", 14))
+label1.pack()
 
-print(f"From class Calculator: Addition {object2.add(6,3)}")
-print(f"From class Calculator: Subtraction {object2.sub(2,3)}")
-print(f"From class Calculator: Multiplication {object2.mul(2, 3)}") 
-print(f"From class Calculator: Division {object2.div(10, 3)}")
+entry1 = tk.Entry(ventana, font=("Arial", 14))
+entry1.pack()
+
+label2 = tk.Label(ventana, text="Número 2:", font=("Arial", 14))
+label2.pack()
+
+entry2 = tk.Entry(ventana, font=("Arial", 14))
+entry2.pack()
+
+label_operacion = tk.Label(ventana, text="Operación:", font=("Arial", 14))
+label_operacion.pack()
+
+operacion_var = tk.StringVar(ventana)
+operacion_var.set("+")  
+
+operacion_menu = tk.OptionMenu(ventana, operacion_var, "+", "-", "*", "/")
+operacion_menu.config(font=("Arial", 14))
+operacion_menu.pack()
+
+boton_calcular = tk.Button(ventana, text="Calcular", command=calcular, font=("Arial", 14), bg="lightgreen")
+boton_calcular.pack()
+
+label_resultado = tk.Label(ventana, text="Resultado: ", font=("Arial", 24, "bold"), fg="blue")
+label_resultado.pack()
+
+ventana.mainloop()
